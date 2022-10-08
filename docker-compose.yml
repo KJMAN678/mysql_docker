@@ -1,0 +1,16 @@
+# versionは3系が最新版で、versionによって書き方が異なる
+version: "3"
+services:
+  mysql:
+    build: ./mysql/ # Dockerfileからビルドすることを示す
+    volumes:
+      - ./mysql/DB:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+    image: mysql # イメージの名前
+    ports:
+      - '3333:3306'
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: passw0rd
